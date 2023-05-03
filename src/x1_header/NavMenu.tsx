@@ -1,20 +1,41 @@
-import { menus } from "./interface/InterMenu";
+import { useState } from "react";
+import { MenuData } from "./interface/InterMenu";
 import "../headerNavStyle.css";
 
 export const NavMenu = () => {
+  const [active, setActive] = useState("");
+
+  const handleMouseEnter = (name: string) => {
+    setActive(name);
+  };
+
+  const handleMouseLeave = () => {
+    setActive("");
+  };
+
   return (
     <>
       <nav className="nav">
         <ul className="navContainer">
-          {menus.map((menu, i) => (
-            <li key={i}>
+          {MenuData.map((menu, i) => (
+            <li
+              key={i}
+              className={`${menu.name} ${active === menu.name ? "active" : ""}`}
+              onMouseEnter={() => handleMouseEnter(menu.name)}
+              onMouseLeave={() => handleMouseLeave()}
+            >
               <p>{menu.name}</p>
             </li>
           ))}
         </ul>
         <div className="detailMenu">
-          {menus.map((menu) => (
-            <ul>
+          {MenuData.map((menu) => (
+            <ul
+              key={menu.name}
+              className={`${menu.name} ${active === menu.name ? "active" : ""}`}
+              onMouseEnter={() => handleMouseEnter(menu.name)}
+              onMouseLeave={() => handleMouseLeave()}
+            >
               {menu.submenus.map((submenu, i) => (
                 <li key={submenu}>
                   <p>{submenu}</p>

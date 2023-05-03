@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import imgLogo from "../../src/images/logo_x1.png";
 import FaceIcon from "@mui/icons-material/Face";
 import PaidIcon from "@mui/icons-material/Paid";
-import { menus } from "./interface/InterMenu";
+import { MenuData } from "./interface/InterMenu";
 import { Login } from "../main/login/Login";
 import {
   Link,
@@ -13,25 +13,15 @@ import {
 import "../headerStyle.css";
 
 export const Header_X1 = () => {
-  // const [hide, setHide] = useState({
-  //   menu1: false,
-  //   menu2: false,
-  //   menu3: false,
-  //   menu4: false,
-  //   menu5: false,
-  //   menu6: false,
-  //   menu7: false,
-  // });
-
   // const mouseEvent = (menuName: MenuList, bool: boolean) => {
   //   const change = { ...hide };
   //   change[menuList] = bool;
   //   setHide(change);
   // };
 
-  const handleLogin = () => {
-    return <div>login ok</div>;
-  };
+  // const handleLogin = () => {
+  //   return <div>login ok</div>;
+  // };
 
   // const router = createBrowserRouter(
   //   createRoutesFromElements(
@@ -67,7 +57,9 @@ export const Header_X1 = () => {
               회원가입
             </Link>
           </button>
-          <FaceIcon style={{ fill: "#e118a9", marginLeft: "8px" }}></FaceIcon>
+          <Link to="/myPage">
+            <FaceIcon style={{ fill: "#e118a9", marginLeft: "8px" }}></FaceIcon>
+          </Link>
           <PaidIcon style={{ fill: "#e118a9", marginLeft: "5px" }}></PaidIcon>
         </div>
       </header>

@@ -1,143 +1,123 @@
-import { useState } from "react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Checkbox,
+  CssBaseline,
+  FormControlLabel,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Link } from "react-router-dom";
+import Container from "@mui/material/Container";
 
-interface SignupFormState {
-  id: string;
-  password: string;
-  passwordConfirm: string;
-  name: string;
-}
-
+const theme = createTheme();
 export const Register = () => {
-  const [formState, setFormState] = useState<SignupFormState>({
-    id: "",
-    password: "",
-    passwordConfirm: "",
-    name: "",
-  });
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormState((prevState) => ({ ...prevState, [name]: value }));
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      userid: data.get("userId"),
+      password: data.get("password"),
+    });
   };
 
-  const handleCheck = () => {
-    setIsChecked(!isChecked);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(formState);
-  };
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        border: "5px solid #e6e6e6;",
-        marginTop: "10%",
-      }}
-    >
-      <form>
-        <h1 style={{ fontSize: "2rem", marginBottom: "1rem" }}>회원가입</h1>
-        <div
-          style={{
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 22,
             display: "flex",
             flexDirection: "column",
-            width: "100%",
-            maxWidth: "20rem",
+            alignItems: "center",
           }}
         >
-          <label htmlFor="id">아이디</label>
-          <div style={{ display: "flex" }}>
-            <input
-              type="text"
-              name="id"
-              id="id"
-              value={formState.id}
-              onChange={handleChange}
-              style={{ marginRight: "0.5rem" }}
-            />
-            <button
-              style={{
-                backgroundColor: "gray",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-              }}
-            >
-              중복확인
-            </button>
-          </div>
-          <label htmlFor="password">비밀번호</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={formState.password}
-            onChange={handleChange}
-          />
-          <label htmlFor="passwordConfirm">비밀번호 확인</label>
-          <input
-            type="password"
-            name="passwordConfirm"
-            id="passwordConfirm"
-            value={formState.passwordConfirm}
-            onChange={handleChange}
-          />
-          <label htmlFor="name">성명</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={formState.name}
-            onChange={handleChange}
-          />
-          <div
-            style={{ display: "flex", alignItems: "center", marginTop: "1rem" }}
+          <Typography component="h1" variant="h5">
+            회원가입
+          </Typography>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
           >
-            <input
-              type="checkbox"
-              id="agree"
-              checked={isChecked}
-              onChange={handleCheck}
-              style={{ marginRight: "0.5rem" }}
-            />
-            <label htmlFor="agree">모든 약관에 동의합니다.</label>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: "2rem",
-              width: "100%",
-            }}
-          >
-            <button
-              style={{
-                backgroundColor: "gray",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-                width: "50px",
-                height: "40px",
-                marginTop: "10px",
-              }}
-            >
-              취소
-            </button>
-            <button
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  // autoComplete="name"
+                  name="name"
+                  required
+                  fullWidth
+                  id="name"
+                  label="성명"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} container spacing={2} alignItems="center">
+                <Grid item xs={9}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="userId"
+                    label="아이디"
+                    name="userId"
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <Button variant="contained">중복확인</Button>
+                </Grid>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="비밀번호"
+                  type="password"
+                  id="password"
+                  // autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="passwordVaild"
+                  label="비밀번호 확인"
+                  type="passwordVaild"
+                  id="passwordVaild"
+                  // autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox value="allowExtraEmails" color="primary" />
+                  }
+                  label="약관 동의"
+                />
+              </Grid>
+            </Grid>
+            <Button
               type="submit"
-              style={{ backgroundColor: "#e118a9", color: "white" }}
-              disabled={!isChecked}
-              // onClick={handleSubmit}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
             >
               확인
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                {<Link to="/login">이미 계정이 있다면?! 로그인 하러 가기</Link>}
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 };
