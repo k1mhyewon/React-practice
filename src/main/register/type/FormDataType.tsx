@@ -3,4 +3,5 @@ export type FormDataType = {
   userName: string;
   userId: string;
   password: string;
+  userPoint: string;
 };

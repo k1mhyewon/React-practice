@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import { useEffect, useState } from "react";
 import { LocalStorageController } from "../../util/LocalStorageController";
@@ -17,6 +17,8 @@ import { FormDataType } from "./type/FormDataType";
 import React from "react";
 
 export const Register = () => {
+  const navigate = useNavigate();
+
   const [isUserNameValid, setIsUserNameValid] = useState(false);
   const [isUserIdValid, setIsUserIdValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
@@ -69,16 +71,20 @@ export const Register = () => {
     ) {
       console.log("check");
       let n_id: number = 0;
+      let point: string = "50000";
 
       let userData: FormDataType = {
         id: n_id.toString(),
         userName: userName,
         userId: userId,
         password: password,
+        userPoint: point,
       };
 
       let userList: FormDataType[] =
-        LocalStorageController.getLocalStorageList() ?? [];
+        LocalStorageController.getLocalStorageList<FormDataType[]>(
+          "userList"
+        ) ?? [];
 
       if (userList.length > 0) {
         n_id = parseInt(userList[userList.length - 1].id) + 1;
@@ -86,7 +92,12 @@ export const Register = () => {
       }
 
       userList.push(userData);
-      LocalStorageController.saveLocalStorage(userList);
+      LocalStorageController.saveLocalStorage<FormDataType[]>(
+        "userList",
+        userList
+      );
+
+      navigate("/login");
     }
   };
 

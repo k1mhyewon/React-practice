@@ -3,14 +3,14 @@ import { FormDataType } from "../main/register/type/FormDataType";
 
 export class LocalStorageController {
   // LocalStorage 얻어옴
-  static getLocalStorageList(): FormDataType[] {
-    let userList = localStorage.getItem("userList");
+  static getLocalStorageList<T>(name: string): T {
+    let localList = localStorage.getItem(name);
 
-    return userList != null ? (JSON.parse(userList) as FormDataType[]) : [];
+    return localList != null ? (JSON.parse(localList) as T) : ([] as T);
   }
 
   // localStorage에 저장
-  static saveLocalStorage(item: FormDataType[]): void {
-    localStorage.setItem("userList", JSON.stringify(item));
+  static saveLocalStorage<T>(name: string, item: T): void {
+    localStorage.setItem(name, JSON.stringify(item));
   }
 }

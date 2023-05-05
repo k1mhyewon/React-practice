@@ -1,6 +1,5 @@
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   Box,
   Button,
@@ -10,12 +9,16 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
+import { LoginController } from "./LoginController";
+import { FormDataType } from "../register/type/FormDataType";
 
-const theme = createTheme();
+const loginController = new LoginController();
 
 export const Login = () => {
+  const navigate = useNavigate();
+
   const [isUserIdValid, setIsUserIdValid] = React.useState(false); // input id 입력값의 유효성을 나타내는 상태 변수 설정
   const [isPasswordValid, setIsPasswordValid] = React.useState(false); // input pwd 입력값의 유효성을 나타내는 상태 변수 설정
   const [idIdSaveChecked, setIsIdSaveChecked] = React.useState(false); // 아이디 저장 체크박스의 체크상태를 나타내는 상태 변수 설정
@@ -46,6 +49,22 @@ export const Login = () => {
     const userId = data.get("userId") as string;
     const password = data.get("password") as string;
     // data.get() 메서드는 반환 값이 string | null 이므로, 강제 형변환을 통해 string 타입으로 지정해준다.
+
+    const user: FormDataType | null = loginController.userExistCheck(
+      userId,
+      password
+    );
+
+    if (user) {
+      loginController.saveUserToSession(user); // 로그인 유저정보 세션에 저장
+      const bool = loginController.isUserSaveSucceed(user); // 세션에 잘 저장됐는지 확인
+      if (bool) {
+        navigate("/home");
+        window.location.reload();
+      }
+    } else {
+      alert("존재하지 않는 회원입니다.");
+    }
   };
 
   return (
