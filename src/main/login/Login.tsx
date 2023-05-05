@@ -11,14 +11,33 @@ import {
   TextField,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const theme = createTheme();
 
 export const Login = () => {
-  const [isIdValid, setIsIdValid] = React.useState(false); // input id 입력값의 유효성을 나타내는 상태 변수 설정
-  const [isPwdValid, setIsPwdValid] = React.useState(false); // input pwd 입력값의 유효성을 나타내는 상태 변수 설정
-  const [isChecked, setIsChecked] = React.useState(false); // 아이디 저장 체크박스의 체크상태를 나타내는 상태 변수 설정
+  const [isUserIdValid, setIsUserIdValid] = React.useState(false); // input id 입력값의 유효성을 나타내는 상태 변수 설정
+  const [isPasswordValid, setIsPasswordValid] = React.useState(false); // input pwd 입력값의 유효성을 나타내는 상태 변수 설정
+  const [idIdSaveChecked, setIsIdSaveChecked] = React.useState(false); // 아이디 저장 체크박스의 체크상태를 나타내는 상태 변수 설정
+
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    if (name === "userId") {
+      setUserId(value);
+      setIsUserIdValid(Boolean(value));
+    } else if (name === "password") {
+      setPassword(value);
+      setIsPasswordValid(Boolean(value));
+    }
+  };
+
+  const handleCheckChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsIdSaveChecked(event.target.checked);
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,26 +46,9 @@ export const Login = () => {
     const userId = data.get("userId") as string;
     const password = data.get("password") as string;
     // data.get() 메서드는 반환 값이 string | null 이므로, 강제 형변환을 통해 string 타입으로 지정해준다.
-
-    // 아이디 비밀번호 input 입력 상태 체크
-    if (userId === "" && password !== "") {
-      setIsIdValid(false);
-      setIsPwdValid(true);
-    } else if (userId !== "" && password === "") {
-      setIsIdValid(true);
-      setIsPwdValid(false);
-    } else {
-      setIsIdValid(true);
-      setIsPwdValid(true);
-    }
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsChecked(event.target.checked);
   };
 
   return (
-    // <ThemeProvider theme={theme}>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box
@@ -68,10 +70,10 @@ export const Login = () => {
             id="userId"
             label="아이디"
             name="userId"
-            // autoComplete="userId"
+            onChange={handleInputChange}
             autoFocus
-            error={!isIdValid}
-            helperText={isIdValid ? "" : "아이디를 입력해주세요."}
+            error={!isUserIdValid}
+            helperText={isUserIdValid ? "" : "아이디를 입력해주세요."}
           />
 
           <TextField
@@ -82,16 +84,16 @@ export const Login = () => {
             label="비밀번호"
             type="password"
             id="password"
-            autoComplete="current-password"
-            error={!isPwdValid}
-            helperText={isPwdValid ? "" : "비밀번호를 입력해주세요."}
+            onChange={handleInputChange}
+            error={!isPasswordValid}
+            helperText={isPasswordValid ? "" : "비밀번호를 입력해주세요."}
           />
           <FormControlLabel
             control={
               <Checkbox
-                value="idRemember"
-                checked={isChecked}
-                onChange={handleChange}
+                value="idSave"
+                checked={idIdSaveChecked}
+                onChange={handleCheckChange}
               />
             }
             label="아이디 저장"

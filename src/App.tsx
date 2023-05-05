@@ -14,6 +14,7 @@ import {
 import { HomeBody } from "./main/home/HomeBody";
 import { Register } from "./main/register/Register";
 import { MyPage } from "./myPage/myPage";
+import { MyPoint } from "./myPage/MyPoint";
 
 function App() {
   // const router = createBrowserRouter(
@@ -30,7 +31,9 @@ function App() {
         <Route path="/home" element={<HomeBody />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/myPage" element={<MyPage />} />
+        <Route path="/myPage" element={<MyPage />}>
+          <Route path="point" element={<MyPoint />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
