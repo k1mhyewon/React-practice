@@ -1,5 +1,5 @@
 import { isArray } from "util";
-import { FormDataType } from "../main/register/type/FormDataType";
+import { FormDataType } from "../main/register/type/FormDataType.type";
 
 export class LocalStorageController {
   // LocalStorage 얻어옴

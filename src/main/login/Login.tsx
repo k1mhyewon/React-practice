@@ -12,12 +12,23 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { LoginController } from "./LoginController";
-import { FormDataType } from "../register/type/FormDataType";
+import { FormDataType } from "../register/type/FormDataType.type";
+import { SessionStorageController } from "../../util/SessionStorageController";
+// import { Redirect } from "react-router-dom";
 
 const loginController = new LoginController();
+const sessionStorageController = new SessionStorageController();
 
 export const Login = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loginUser =
+      sessionStorageController.getSessionStorage<FormDataType>("loginUser");
+    if (loginUser.id) {
+      navigate("/");
+    }
+  }, []);
 
   const [isUserIdValid, setIsUserIdValid] = React.useState(false); // input id 입력값의 유효성을 나타내는 상태 변수 설정
   const [isPasswordValid, setIsPasswordValid] = React.useState(false); // input pwd 입력값의 유효성을 나타내는 상태 변수 설정
@@ -59,7 +70,7 @@ export const Login = () => {
       loginController.saveUserToSession(user); // 로그인 유저정보 세션에 저장
       const bool = loginController.isUserSaveSucceed(user); // 세션에 잘 저장됐는지 확인
       if (bool) {
-        navigate("/home");
+        navigate("/");
         window.location.reload();
       }
     } else {

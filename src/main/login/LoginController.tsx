@@ -1,5 +1,5 @@
 import { LocalStorageController } from "../../util/LocalStorageController";
-import { FormDataType } from "../register/type/FormDataType";
+import { FormDataType } from "../register/type/FormDataType.type";
 import { SessionStorageController } from "../../util/SessionStorageController";
 
 const sessionStorageController = new SessionStorageController();

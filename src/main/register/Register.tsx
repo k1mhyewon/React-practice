@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   Checkbox,
@@ -11,9 +10,9 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LocalStorageController } from "../../util/LocalStorageController";
-import { FormDataType } from "./type/FormDataType";
+import { FormDataType } from "./type/FormDataType.type";
 import React from "react";
 
 export const Register = () => {
@@ -69,7 +68,7 @@ export const Register = () => {
       isPasswordValid &&
       isPasswordCheckValid
     ) {
-      console.log("check");
+      // console.log("check");
       let n_id: number = 0;
       let point: string = "50000";
 

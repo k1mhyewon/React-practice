@@ -1,11 +1,11 @@
-import { FormDataType } from "../main/register/type/FormDataType";
+import { FormDataType } from "../main/register/type/FormDataType.type";
 
 export class SessionStorageController {
   // LocalStorage 얻어옴
   getSessionStorage<T>(name: string): T {
     let sessionList = sessionStorage.getItem(name);
 
-    return sessionList != null ? (JSON.parse(sessionList) as T) : ([] as T);
+    return sessionList ? (JSON.parse(sessionList) as T) : ([] as T);
   }
 
   // localStorage에 저장

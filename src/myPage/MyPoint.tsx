@@ -1,18 +1,21 @@
 import { Box, Typography } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export const MyPoint = () => {
+  const location = useLocation();
+  const loginUserData = location.state.userData;
+
   return (
     <>
       <Box
         sx={{
-          margin: "0 8%",
-          width: "80%",
+          margin: "0 0",
+          // width: "80%",
           border: "5px solid #e6e6e6",
           padding: "1% 1%",
         }}
       >
-        <Typography>
+        <div>
           <Typography sx={{ display: "inline" }}>
             고객님께서는 포인트{" "}
           </Typography>
@@ -24,14 +27,14 @@ export const MyPoint = () => {
               display: "inline",
             }}
           >
-            55000 P
+            {loginUserData.userPoint} P
           </Typography>
           <Typography sx={{ display: "inline" }}>
             {" "}
             를 보유하고 있습니다.
           </Typography>
           <Typography>2023-06-16일 55000P가 소멸됩니다.</Typography>
-        </Typography>
+        </div>
       </Box>
     </>
   );

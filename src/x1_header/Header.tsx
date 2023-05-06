@@ -1,18 +1,19 @@
+import "../headerStyle.css";
 import { useEffect, useState } from "react";
 import imgLogo from "../../src/images/logo_x1.png";
 import FaceIcon from "@mui/icons-material/Face";
 import PaidIcon from "@mui/icons-material/Paid";
 import { Link, useNavigate } from "react-router-dom";
-import "../headerStyle.css";
 import { SessionStorageController } from "../util/SessionStorageController";
-import { FormDataType } from "../main/register/type/FormDataType";
+import { FormDataType } from "../main/register/type/FormDataType.type";
 
 const sessionStorageController = new SessionStorageController();
 export const Header_X1 = () => {
   const navigate = useNavigate();
 
+  const [loginUserData, setLoginUserData] = useState<FormDataType | null>(null);
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     const loginUser =
@@ -20,10 +21,9 @@ export const Header_X1 = () => {
 
     if (loginUser.id) {
       setIsLoggedIn(true);
-      setUserName(loginUser.userName);
+      setLoginUserData(loginUser);
     } else {
       setIsLoggedIn(false);
-      setUserName("");
     }
   }, []);
 
@@ -31,20 +31,20 @@ export const Header_X1 = () => {
     <>
       <header>
         <div className="logo">
-          <Link to="/home">
+          <Link to="/">
             <img src={imgLogo} className="" alt="logo"></img>
           </Link>
         </div>
         <div className="buttons">
           {isLoggedIn ? (
             <>
-              <span style={{}}>{userName}님</span>
+              <span style={{}}>{loginUserData!.userName}님&nbsp;|&nbsp;</span>
               <button
                 className="logout-btn"
                 onClick={() => {
                   sessionStorage.removeItem("loginUser");
                   setIsLoggedIn(false);
-                  navigate("/home");
+                  navigate("/");
                 }}
               >
                 로그아웃
@@ -72,11 +72,12 @@ export const Header_X1 = () => {
             </>
           )}
 
-          <Link to="/myPage">
+          <Link to="/myPage" state={{ userData: loginUserData }}>
             <FaceIcon style={{ fill: "#e118a9" }}></FaceIcon>
           </Link>
-
-          <PaidIcon style={{ fill: "#e118a9", marginLeft: "5px" }}></PaidIcon>
+          <Link to="/myPage/point" state={{ userData: loginUserData }}>
+            <PaidIcon style={{ fill: "#e118a9", marginLeft: "5px" }}></PaidIcon>
+          </Link>
         </div>
       </header>
     </>
