@@ -6,7 +6,8 @@ export const HomeBody = () => {
   return (
     <>
       <Box sx={{ marginTop: 10 }}>
-        <HomeCarousel />
+        <img src="https://www.x1.co.kr/attachfile/2022/03/60a4bf89-d47d-4fd6-984f-e5b2739df330.png" />
+        {/* <HomeCarousel /> */}
         <X1Academy />
       </Box>
     </>

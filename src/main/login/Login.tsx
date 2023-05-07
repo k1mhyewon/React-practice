@@ -142,9 +142,7 @@ export const Login = () => {
                   비밀번호 찾기
                 </Link> */}
             </Grid>
-            <Grid item>
-              {<Link to="/register">계정이 없다면?! 회원가입 하러 가기</Link>}
-            </Grid>
+            <Grid item>{<Link to="/register">회원가입 하러 가기</Link>}</Grid>
           </Grid>
         </Box>
       </Box>

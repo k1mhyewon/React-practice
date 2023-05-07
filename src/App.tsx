@@ -8,6 +8,7 @@ import { Register } from "./main/register/Register";
 import { MyPage } from "./myPage/myPage";
 import { MyPoint } from "./myPage/MyPoint";
 import { UserInfo } from "./myPage/UserInfo";
+import { DeleteAccount } from "./myPage/DeleteAccount";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/myPage" element={<MyPage />}>
           <Route path="point" element={<MyPoint />} />
           <Route path="userInfo" element={<UserInfo />} />
+          <Route path="deleteAccount" element={<DeleteAccount />} />
         </Route>
       </Routes>
     </BrowserRouter>

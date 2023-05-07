@@ -1,48 +1,56 @@
-import { useEffect, useState } from "react";
-import { SessionStorageController } from "../util/SessionStorageController";
-import { FormDataType } from "../main/register/type/FormDataType.type";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
-
-const sessionStorageController = new SessionStorageController();
+import "./userInfoStyle.css";
+import { UserInfoValidCheck } from "./UserInfoValidCheck";
+import { UserInfoChangePwd } from "./UserInfoChangePwd";
 
 export const UserInfo = () => {
   const location = useLocation();
   const loginUserData = location.state.userData;
 
-  const [password, setPassword] = useState<string>("");
   const [isValid, setIsValid] = useState(false);
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const handleConfirmClick = () => {
-    if (password === loginUserData.password) {
-      setIsValid(true);
-    }
-  };
 
   return (
     <>
       <div>
         {isValid ? (
           <>
-            <div>아이디: {loginUserData.userId}</div>
-            <div>이름: {loginUserData.userName}</div>
-            <div>포인트: {loginUserData.userPoint}P</div>
+            <hr />
+            <h3>회원 정보</h3>
+            <div>
+              <table className="member-info-table">
+                <tbody>
+                  <tr>
+                    <td className="member-info-label">아이디</td>
+                    <td className="member-info-value">
+                      {loginUserData.userId}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="member-info-label">이름</td>
+                    <td className="member-info-value">
+                      {loginUserData.userName}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="member-info-label">포인트</td>
+                    <td className="member-info-value">
+                      {loginUserData.userPoint}P
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <UserInfoChangePwd loginUserData={loginUserData} />
+            <hr />
           </>
         ) : (
           <>
-            <div>아이디: {loginUserData.userId}</div>
-            <div>
-              비밀번호:{" "}
-              <input
-                type="password"
-                value={password}
-                onChange={handlePasswordChange}
-              />
-            </div>
-            <button onClick={handleConfirmClick}>확인</button>
+            <UserInfoValidCheck
+              loginUserData={loginUserData}
+              setIsValid={setIsValid}
+            />
           </>
         )}
       </div>

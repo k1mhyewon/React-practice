@@ -5,6 +5,7 @@ import FaceIcon from "@mui/icons-material/Face";
 import PaidIcon from "@mui/icons-material/Paid";
 import { Link, useNavigate } from "react-router-dom";
 import { SessionStorageController } from "../util/SessionStorageController";
+import { LocalStorageController } from "../util/LocalStorageController";
 import { FormDataType } from "../main/register/type/FormDataType.type";
 
 const sessionStorageController = new SessionStorageController();

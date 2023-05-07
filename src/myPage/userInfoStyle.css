@@ -1,0 +1,26 @@
+.member-info-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.member-info-label {
+  width: 20%;
+  font-weight: bold;
+  text-align: right;
+  padding: 10px;
+  background-color: #c4c4c4;
+  color: #fff;
+}
+
+.member-info-value {
+  width: 80%;
+  text-align: left;
+  padding: 10px;
+  /* background-color: #f7c5d5; */
+  color: #5c5c5c;
+}
+
+tr {
+  border-top: solid 1px gray;
+  border-bottom: solid 1px gray;
+}

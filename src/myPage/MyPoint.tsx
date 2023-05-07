@@ -15,7 +15,7 @@ export const MyPoint = () => {
           padding: "1% 1%",
         }}
       >
-        <div>
+        <div style={{}}>
           <Typography sx={{ display: "inline" }}>
             고객님께서는 포인트{" "}
           </Typography>
@@ -33,7 +33,9 @@ export const MyPoint = () => {
             {" "}
             를 보유하고 있습니다.
           </Typography>
-          <Typography>2023-06-16일 55000P가 소멸됩니다.</Typography>
+          <Typography>
+            2023-06-16일 {loginUserData.userPoint} P가 소멸됩니다.
+          </Typography>
         </div>
       </Box>
     </>

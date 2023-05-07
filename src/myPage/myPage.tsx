@@ -106,7 +106,9 @@ export const MyPage = () => {
               padding: "0 1% 1% 0",
             }}
           >
-            상담내역
+            <Link to="deleteAccount" state={{ userData: loginUserData }}>
+              회원탈퇴
+            </Link>
           </Grid>
         </Grid>
         <Outlet />

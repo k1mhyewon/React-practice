@@ -57,18 +57,12 @@ export const Register = () => {
 
     const formData = new FormData(event.currentTarget);
 
-    const userName = formData.get("userName")?.toString() || "";
-    const userId = formData.get("userId")?.toString() || "";
-    const password = formData.get("password")?.toString() || "";
-    const passwordCheck = formData.get("passwordCheck")?.toString() || "";
-
     if (
       isUserNameValid &&
       isUserIdValid &&
       isPasswordValid &&
       isPasswordCheckValid
     ) {
-      // console.log("check");
       let n_id: number = 0;
       let point: string = "50000";
 
@@ -95,7 +89,7 @@ export const Register = () => {
         "userList",
         userList
       );
-
+      alert("회원가입이 완료되었습니다.");
       navigate("/login");
     }
   };
